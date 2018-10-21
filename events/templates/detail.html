@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Detail{% endblock title %}
+
+{% block content %}
+
+<br>
+<div class="card container">
+  <h5 class="card-header">Event Info</h5>
+ 
+  <div class="card-body">
+    <h5 class="card-title">{{event.title}}</h5>
+    <p class="card-text">{{event.description|linebreaks}}</p>
+    <p class="card-text">Location: {{event.location}}</p>
+    <p class="card-text">Date and Time: {{event.datetime}}</p>
+    <p class="card-text">Number of Seats: {{event.seats}}</p>
+    <p class="card-text">Event Organizer: {{event.organizer.username}}</p>
+  </div>
+
+  
+   <div class="card-body">
+
+    <div class="row text-center">
+      {# {% if request.user.is_staff %} #}
+
+        <div class="col-md-4">
+            <a href="{% url 'edit' event.id %}" class="btn btn-outline-primary btn-block">Edit</a>
+        </div>
+
+       
+
+        
+
+      {# {% elif request.user == restaurant.owner %} #}
+
+       
+      
+      {# {% endif %} #}
+
+    </div>
+
+  </div> 
+
+</div>
+{% endblock content %}
