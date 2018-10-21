@@ -22,20 +22,16 @@
 
     <div class="row text-center">
       {# {% if request.user.is_staff %} #}
+ 
+
+      {% if request.user == event.organizer %}
 
         <div class="col-md-4">
-            <a href="{% url 'edit' event.id %}" class="btn btn-outline-primary btn-block">Edit</a>
+              <a href="{% url 'edit' event.id %}" class="btn btn-outline-primary btn-block">
+              Edit</a>
         </div>
 
-       
-
-        
-
-      {# {% elif request.user == restaurant.owner %} #}
-
-       
-      
-      {# {% endif %} #}
+      {% endif %}
 
     </div>
 
