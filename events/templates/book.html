@@ -2,19 +2,19 @@
 {% load crispy_forms_tags %}
 
 
-{% block title %}Create{% endblock title %}
+{% block title %}Book{% endblock title %}
 
 {% block content %}
     
 <div class="jumbotron">
   <div class="card m-3">
-    <h5 class="card-header">Create</h5>
+    <h5 class="card-header">Book</h5>
     <div class="card-body">
       <p class="card-text">
-          <form action="{% url 'create' %}" method="POST">
+          <form action="{% url 'book' event.id %}" method="POST">
               {% csrf_token %}
               {{form|crispy}}
-              <input type="submit" value="Create" class="btn btn-outline-success">
+              <input type="submit" value="Book" class="btn btn-outline-success">
           </form>
       </p>
     </div>

@@ -4,37 +4,47 @@
 
 {% block content %}
 <br>
-
-<div class="row">
-    {% for event in events %}
-
-    <div class="col-md-4 container">
-        <div class="card my-card">
-
-
-          <div class="card-body">
-            <h5 class="card-title">{{event.title}}</h5>
-
-            <p class="card-text">
-              <div class="float-left">
-                {{event.description|truncatechars:25}}
-              </div>
-            </p>
-
-          </div>
-
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item text-center">
-                <a href="{% url 'detail' event.id %}" class="btn btn-outline-dark">
-                View Details</a>
-            </li>
-          </ul>
-
+<div class="container">
+  <div class="container m-5">
+    <form action="{% url 'events' %}">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search by title, description, or organizer..." aria-label="Search" name="q" value="{{request.GET.q}}">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
         </div>
+    </form>
+
+    <div class="row">
+        {% for event in events %}
+
+        <div class="col-md-4 container">
+            <div class="card my-card">
+
+
+              <div class="card-body">
+                <h5 class="card-title">{{event.title}}</h5>
+
+                <p class="card-text">
+                  <div class="float-left">
+                    {{event.description|truncatechars:25}}
+                  </div>
+                </p>
+
+              </div>
+
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item text-center">
+                    <a href="{% url 'detail' event.id %}" class="btn btn-outline-dark">
+                    View Details</a>
+                </li>
+              </ul>
+
+            </div>
+        </div>
+
+        {% endfor %}
+
     </div>
-
-    {% endfor %}
-
+  </div>
 </div>
 
 {% endblock content %}

@@ -4,37 +4,82 @@
 
 {% block content %}
 <br>
-
-<div class="row">
-    {% for event in events %}
-
-    <div class="col-md-4 container">
-        <div class="card my-card">
-
-
-          <div class="card-body">
-            <h5 class="card-title">{{event.title}}</h5>
-
-            <p class="card-text">
-              <div class="float-left">
-                {{event.description|truncatechars:25}}
-              </div>
-            </p>
-
-          </div>
-
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item text-center">
-                <a href="{% url 'detail' event.id %}" class="btn btn-outline-dark">
-                View Details</a>
-            </li>
-          </ul>
-
+<div class="container">
+  <div class="container m-5">
+    <br>
+    <h3 class= "text-center"> MY DASHBOARD </h3>
+    <form action="{% url 'events' %}">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search by title, or description..." aria-label="Search" name="q" value="{{request.GET.q}}">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
         </div>
+    </form>
+
+    <div class="row">
+        {% for event in events %}
+
+        <div class="col-md-4 container">
+            <div class="card my-card mb-3">
+
+
+              <div class="card-body">
+                <h5 class="card-title text-center">{{event.title}}</h5>
+
+                <p class="card-text">
+                  <div class="float-left text-center">
+                    {{event.description|truncatechars:25}}
+                  </div>
+                </p>
+
+              </div>
+
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item text-center">
+                    <a href="{% url 'detail' event.id %}" class="btn btn-outline-dark">
+                    View Details</a>
+                </li>
+              </ul>
+
+            </div>
+        </div>
+
+        {% endfor %}
     </div>
 
-    {% endfor %}
+        <div>
+            <br>
+            
+            <h3 class="text-center"> EVENTS I ATTENDED </h3>
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Organizer</th>
+                  </tr>
+                </thead>
 
+                <tbody>
+                {% for b in events_I_attended %}
+
+                  <tr>
+                    <td>{{b.event.title}}</td>
+                    <td>{{b.event.date}}</td>
+                    <td>{{b.event.time}}</td>
+                    <td>{{b.event.organizer}}</td>
+                  </tr>
+
+                {% endfor %}
+                </tbody>
+            </table>
+            
+        </div>
+
+  </div>
 </div>
 
 {% endblock content %}
+
+
+      
