@@ -5,19 +5,19 @@
 
 {% block content %}
 
-<div class="jumbotron">
-  <div class="card m-3">
-    <h5 class="card-header">Edit Event</h5>
-    <div class="card-body">
-      <p class="card-text">
-          <form action="{% url 'edit' event.id %}" method="POST">
-              {% csrf_token %}
-              {{form|crispy}}
-              <input type="submit" value="Edit" class="btn btn-outline-success">
-          </form>
-      </p>
+    <div class="jumbotron">
+      <div class="card m-3">
+        <h5 class="card-header">Edit Event</h5>
+        <div class="card-body">
+          <p class="card-text">
+              <form action="{% url 'edit' event.id %}" method="POST">
+                  {% csrf_token %}
+                  {{form|crispy}}
+                  <input type="submit" value="Edit" class="btn btn-outline-info">
+              </form>
+          </p>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
 {% endblock content %}

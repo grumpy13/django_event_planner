@@ -3,55 +3,62 @@
 {% block title %}Dashboard{% endblock title %}
 
 {% block content %}
-<br>
-<div class="container">
-  <div class="container m-5">
+
+<div id='content-area' class="container-responsive">
+  <div class="container">
     <br>
-    <h3 class= "text-center"> MY DASHBOARD </h3>
+    <h2 class= "text-center mb-3" style = "font-family: Gorgia;"> MY DASHBOARD </h2>
     <form action="{% url 'events' %}">
-        <div class="input-group mb-3">
+        <div class="input-group mb-4">
             <input type="text" class="form-control" placeholder="Search by title, or description..." aria-label="Search" name="q" value="{{request.GET.q}}">
                 <button class="btn btn-outline-secondary" type="submit">Search</button>
         </div>
     </form>
 
+    <div class = "text-center mb-3" >
+      <h3 style = "font-family: comic sans;"> MY EVENTS </h3>
+      </div>
+
     <div class="row">
         {% for event in events %}
+        <div class="col-md-4 container mt-3">
+            <div class="card border-dark my-card mb-3 text-center" style="background-color: rgba(255, 255, 255, 0.5);">
+              <div class="card-body  " >
+                <h4 class="card-title " style= "font-family: Gorgia;">{{event.title}}</h4>
 
-        <div class="col-md-4 container">
-            <div class="card my-card mb-3">
-
-
-              <div class="card-body">
-                <h5 class="card-title text-center">{{event.title}}</h5>
-
-                <p class="card-text">
-                  <div class="float-left text-center">
+                <p class="card-text ">
+                  <div class="text-center">
                     {{event.description|truncatechars:25}}
                   </div>
                 </p>
-
-              </div>
-
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item text-center">
+                 <ul class="list-group list-group-flush " >
+                <li class="list-group-item text-center" style="background-color: 
+                rgba(255, 255, 255, 0.1);">
                     <a href="{% url 'detail' event.id %}" class="btn btn-outline-dark">
                     View Details</a>
                 </li>
-              </ul>
-
+                 </ul>
+              </div>
             </div>
         </div>
-
         {% endfor %}
-    </div>
+    </div >
 
-        <div>
-            <br>
-            
-            <h3 class="text-center"> EVENTS I ATTENDED </h3>
-            <table class="table">
-                <thead class="thead-dark">
+        <div class="accordion" id="accordionExample" >
+            <div class="card mt-5" style="background: transparent; background-color: rgba(255, 255, 255, 0.2);">
+              <div  id="headingOne">
+                <h5 class="mb-0 text-center" >
+                  <button class="btn btn-outline-dark btn-lg btn-block " type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <h4 style = "color:black;font-family: Gorgia;"> 
+                    EVENTS I ATTENDED </h4>
+                  </button>
+                </h5>
+              </div>
+          <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordionExample" style="padding-bottom: 0;">
+
+          <div>
+            <table class="table" style="margin-bottom: 30px; background-color: rgba(255, 255, 255, 0.5);">
+                <thead class="table-active">
                   <tr>
                     <th scope="col">Title</th>
                     <th scope="col">Date</th>
@@ -63,7 +70,7 @@
                 <tbody>
                 {% for b in events_I_attended %}
 
-                  <tr>
+                  <tr >
                     <td>{{b.event.title}}</td>
                     <td>{{b.event.date}}</td>
                     <td>{{b.event.time}}</td>
@@ -73,13 +80,14 @@
                 {% endfor %}
                 </tbody>
             </table>
-            
         </div>
+      </div>
+    </div>
 
   </div>
+ </div>
+
 </div>
 
+
 {% endblock content %}
-
-
-      

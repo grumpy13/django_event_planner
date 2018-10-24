@@ -3,7 +3,9 @@ from .views import (Login, Logout, Signup, home,
  event_create, dashboard, 
  event_detail, event_edit, 
  events, event_delete,
- event_book, no_access)
+ event_book, no_access, 
+ profile_edit, profile, 
+ profiles)
 
 urlpatterns = [
 	path('', home, name='home'),
@@ -18,4 +20,7 @@ urlpatterns = [
     path('delete/<int:event_id>/',event_delete ,name='delete'),
     path('book/<int:event_id>/',event_book ,name='book'),
     path('noaccess/',no_access ,name='no-access'),
+    path('profile/<int:user_id>/',profile ,name='profile'),
+    path('profile/edit/',profile_edit ,name='profile-edit'),
+    path('profiles/',profiles ,name='profiles'),
 ]

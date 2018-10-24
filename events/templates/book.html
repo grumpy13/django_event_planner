@@ -5,19 +5,21 @@
 {% block title %}Book{% endblock title %}
 
 {% block content %}
-    
-<div class="jumbotron">
-  <div class="card m-3">
-    <h5 class="card-header">Book</h5>
-    <div class="card-body">
-      <p class="card-text">
-          <form action="{% url 'book' event.id %}" method="POST">
-              {% csrf_token %}
-              {{form|crispy}}
-              <input type="submit" value="Book" class="btn btn-outline-success">
-          </form>
-      </p>
+ 
+<body style="background:black;">  
+    <div class="jumbotron">
+      <div class="card m-3">
+        <h5 class="card-header">Book</h5>
+        <div class="card-body">
+          <p class="card-text">
+              <form action="{% url 'book' event.id %}" method="POST">
+                  {% csrf_token %}
+                  {{form|crispy}}
+                  <input type="submit" value="Book" class="btn btn-outline-success">
+              </form>
+          </p>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  </body>
 {% endblock content %}

@@ -1,33 +1,33 @@
 {% extends "base.html" %}
 
-{% block title %}Events{% endblock title %}
+{% block title %}PROFILES{% endblock title %}
 
 {% block content %}
 <br>
 <div class="container">
   <div class="container m-5">
     <br>
-    <form action="{% url 'events' %}">
+    <form action="{% url 'profiles' %}">
         <div class="input-group mb-4 mt-2">
-            <input type="text" class="form-control" placeholder="Search by title, description, or organizer..." aria-label="Search" name="q" value="{{request.GET.q}}">
+            <input type="text" class="form-control" placeholder="Search by username..." aria-label="Search" name="q" value="{{request.GET.q}}">
                 <button class="btn btn-outline-secondary" type="submit">Search</button>
         </div>
     </form>
     
-    <h2 class="text-center mb-4 mt-4" style = "font-family: Gorgia;" > UPCOMING EVENTS </h2>
+    <h2 class="text-center mb-4 mt-4" style = "font-family: Gorgia;" > PROFILES </h2>
     <div class="row">
-        {% for event in events %}
+        {% for user in users %}
 
-        <div class="col-md-4 container" >
-            <div class="card border-dark my-card mb-5" style="background-color: rgba(255, 255, 255, 0.5);" >
+        <div class="col-md-4 container mb-5" >
+            <div class="card border-dark my-card" style="background-color: rgba(255, 255, 255, 0.5);" >
 
 
               <div class="card-body text-center" >
-                <h5 class="card-title">{{event.title}}</h5>
+                <h5 class="card-title">{{user.username}}</h5>
 
                 <p class="card-text text-center">
                   <div >
-                    {{event.description|truncatechars:25}}
+                    {{user.profile.bio|truncatechars:25}}
                   </div>
                 </p>
 
@@ -35,7 +35,7 @@
 
               <ul class="list-group list-group-flush" >
                 <li class="list-group-item text-center" style="background-color: rgba(255, 255, 255, 0.1);" >
-                    <a href="{% url 'detail' event.id %}" class="btn btn-outline-dark">
+                    <a href="{% url 'profile' user.id %}" class="btn btn-outline-dark">
                     View Details</a>
                 </li>
               </ul>

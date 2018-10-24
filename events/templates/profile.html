@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock title %}
+
+{% block content %}
+
+<br>
+<div id='content-area' class='container-responsive mb-5' style="background: transparent; margin-top: 10px; font-family: Georgia, serif; ">
+
+	<h2 class='text-center' style='font-family: Georgia, serif; font-size:40px;'> {{user.profile.get_full_name}} </h2> <br>
+
+
+	<table class="table table-striped text-center" style="background-color: rgba(255, 255, 255, 0.5);">
+	  <thead>          
+	  </thead>
+
+	  <tbody style="font-size: 20px;">
+	    <tr>
+	    	<th scope="col">Username</th>
+	    	<td>{{ user.username }}</td>
+	    </tr>
+	    <tr>
+	    	<th scope="col">First Name</th>
+	    	<td>{{ user.first_name }}</td>
+	    </tr>
+	    <tr>
+	    	<th scope="col">Last Name</th>
+	    	<td>{{ user.last_name }}</td>
+	    </tr>
+	    <tr>
+	    	<th scope="col">Location</th>
+	    	<td>{{ user.profile.location }}</td>
+	    </tr>
+	    <tr>
+	    	<th scope="col">Birthdate</th>
+	    	<td>{{ user.profile.birth_date }}</td>
+	    </tr>
+	    <tr>
+	    	<th scope="col">Bio</th>
+	    	<td>{{ user.profile.bio }}</td>
+	    </tr>  
+	  </tbody>
+	</table>
+
+	{% if request.user == user %}
+	<center><div id = "wrapper" class="col-md-4 mt-5 mb-5" >
+       <a href="{% url 'profile-edit' %}" class="btn btn-outline-info btn-block btn-lg" style="font-weight:bold; text-color:balck;">
+        Edit Profile</a>
+    </div></center> 
+    {% endif %}
+
+	{% if not request.user == user %}
+    <div class="accordion mt-5" id="accordionExample" >
+            <div class="card mt-3" style="background: transparent; background-color: rgba(255, 255, 255, 0.1);">
+              <div  id="headingOne">
+                <h5 class="mb-0 text-center" >
+                  <button class="btn btn-outline-dark btn-lg btn-block " type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <h4 style = "color:black;font-family: Gorgia;"> 
+                    Events Organized By {{user.first_name}}</h4>
+                  </button>
+                </h5>
+              </div>
+          <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordionExample">
+
+          <div>
+            <table class="table" style="margin-bottom: 30px; background-color: rgba(255, 255, 255, 0.5);">
+                <thead class="table-active">
+                  <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Time</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                {% for event in events %}
+
+                  <tr >
+                    <td>{{event.title}}</td>
+                    <td>{{event.date}}</td>
+                    <td>{{event.time}}</td>
+                  </tr>
+
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  {% endif %}
+
+</div>
+
+
+{% endblock content %}

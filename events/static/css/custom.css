@@ -1,0 +1,37 @@
+body {
+	background-image: url("/media/background.jpg");
+	/*position: relative;*/
+	/*background-attachment: scroll;
+	overflow: hidden;
+	background-repeat: no-repeat;
+	background-position: center center;*/
+	
+	background-size: cover;
+	/*padding-top: calc(7rem + 72px);
+	padding-bottom: 7rem;
+	background: linear-gradient(0deg, #ff6a00 0%, #ee0979 100%);
+
+	*/
+  
+   /*background-color: #cccccc;*/
+}
+
+#content-area {
+	padding: 100px;
+	margin-bottom: 200px;
+}
+
+#row1 {
+    text-align: center;
+}
+/*.col-md-2 {
+    display:inline-block;
+}*/
+
+.center {
+    margin: auto;
+    width: 60%;
+    border: 3px solid #73AD21;
+    padding: 10px;
+}
+
