@@ -14,9 +14,10 @@
       <div class="card-body text-center">
         <h5 class="card-title">{{event.title}}</h5>
         <p class="card-text">{{event.description|linebreaks}}</p>
-        <p class="card-text">Location: {{event.location}}</p>
-        <p class="card-text">Date: {{event.date}}</p>
-        <p class="card-text">Time: {{event.time}}</p>
+        <p class="card-text"> <i class="far fa-calendar-alt"></i> : {{event.date}}</p>
+        <p class="card-text"><i class="far fa-clock"></i> : {{event.time}}</p>
+        <p class="card-text"><i class="fas fa-map-marker-alt"></i> : {{event.location}}</p>
+        
         <p class="card-text">Remaining Seats: {{event.get_remaining_seats}}</p>
         <p class="card-text">Event Organizer: {{event.organizer.username}}</p>
       </div>

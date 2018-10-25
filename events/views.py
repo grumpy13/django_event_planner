@@ -8,6 +8,8 @@ from django.db.models import Q
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from django.core.mail import send_mail
+from django.conf import settings
 
 def home(request):
 	return render(request, 'home.html')
@@ -51,8 +53,8 @@ class Login(View):
 			auth_user = authenticate(username=username, password=password)
 			if auth_user is not None:
 				login(request, auth_user)
-				messages.success(request, "Welcome Back!")
-				return redirect('home') #it was dashboard before
+				messages.success(request, "Welcome Back! " +request.user.username)
+				return redirect('dashboard') 
 			messages.warning(request, "Wrong email/password combination. Please try again.")
 			return redirect("login")
 		messages.warning(request, form.errors)
@@ -144,7 +146,6 @@ def events(request):
 
 	query = request.GET.get('q')
 	if query:
-	
 		events = events.filter(
 		Q(title__icontains=query)|
 		Q(description__icontains=query)|
@@ -183,7 +184,9 @@ def event_book(request, event_id):
 
 			if booked.tickets <= event.get_remaining_seats():
 				booked.save()
+				email(request.user.email, booked.event.description)
 				messages.success(request, "You have successfully booked tickets.")
+
 				return redirect('events')
 			else:
 				messages.warning(request, "No enough empty seats! There are "+str(event.get_remaining_seats())+" seats left!")
@@ -282,5 +285,13 @@ def following(request):
 		"followed": followed,
 	}
 	return render(request, 'followed_list.html', context)
+
+def email(recipient, info):
+    subject = 'New booking!'
+    message = 'Your booking has been confirmed!'
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [ recipient ]
+    send_mail( subject, message, email_from, recipient_list )
+    return redirect('dashboard')
 
 

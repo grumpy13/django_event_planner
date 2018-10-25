@@ -37,6 +37,10 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ['bio', 'location', 'birth_date',]
 
+        widgets={
+        'birth_date': forms.DateInput(attrs={'type':'date'}),
+        }
+
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
