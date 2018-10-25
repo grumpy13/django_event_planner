@@ -5,7 +5,8 @@ from .views import (Login, Logout, Signup, home,
  events, event_delete,
  event_book, no_access, 
  profile_edit, profile, 
- profiles)
+ profiles, follow,
+ following)
 
 urlpatterns = [
 	path('', home, name='home'),
@@ -23,4 +24,7 @@ urlpatterns = [
     path('profile/<int:user_id>/',profile ,name='profile'),
     path('profile/edit/',profile_edit ,name='profile-edit'),
     path('profiles/',profiles ,name='profiles'),
+
+    path('follow/<int:user_id>/', follow, name='follow'),
+    path('following/',following ,name='following'),
 ]

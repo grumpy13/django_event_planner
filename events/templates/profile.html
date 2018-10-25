@@ -33,7 +33,7 @@
 	    </tr>
 	    <tr>
 	    	<th scope="col">Birthdate</th>
-	    	<td>{{ user.profile.birth_date }}</td>
+	    	<td>{{ user.profile.birth_date }}</td> 
 	    </tr>
 	    <tr>
 	    	<th scope="col">Bio</th>
@@ -50,6 +50,7 @@
     {% endif %}
 
 	{% if not request.user == user %}
+
     <div class="accordion mt-5" id="accordionExample" >
             <div class="card mt-3" style="background: transparent; background-color: rgba(255, 255, 255, 0.1);">
               <div  id="headingOne">
@@ -95,3 +96,4 @@
 
 
 {% endblock content %}
+

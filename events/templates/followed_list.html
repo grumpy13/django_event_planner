@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Following{% endblock title %}
+
+{% block content %}
+<br>
+<div class="container">
+  <div class="container m-5">
+    <br>
+    <form action="{% url 'profiles' %}">
+        <div class="input-group mb-4 mt-2">
+            <input type="text" class="form-control" placeholder="Search by name..." aria-label="Search" name="q" value="{{request.GET.q}}">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </div>
+    </form>
+    
+    <h2 class="text-center mb-4 mt-4" style = "font-family: Gorgia;" > People I Follow </h2>
+    <div class="row">
+        {% for f in followed %}
+
+        <div class="col-md-4 container" >
+            <div class="card border-dark my-card mb-5" style="background-color: rgba(255, 255, 255, 0.5);" >
+
+
+              <div class="card-body text-center" >
+                <h5 class="card-title">{{f.username}}</h5>
+
+                <p class="card-text text-center">
+                  <div >
+                    {{f.profile.bio|truncatechars:25}}
+                  </div>
+                </p>
+
+              </div>
+
+              <ul class="list-group list-group-flush" >
+                <li class="list-group-item text-center" style="background-color: rgba(255, 255, 255, 0.1);" >
+                    <a href="{% url 'profile' f.id %}" class="btn btn-outline-dark">
+                    View Details</a>
+                </li>
+              </ul>
+
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}
+

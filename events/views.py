@@ -3,10 +3,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.views import View
 from .forms import UserSignup, UserLogin, EventForm, BookingForm, ProfileForm, UserForm
 from django.contrib import messages
-from .models import Event, Booking, Profile
+from .models import Event, Booking, Profile, Follow
 from django.db.models import Q
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 
 def home(request):
 	return render(request, 'home.html')
@@ -220,13 +221,18 @@ def profile_edit(request):
 
 def profiles(request):
 	users = User.objects.all()
-	# events = Event.objects.all()
 	query = request.GET.get('q')
 	if query:
-	
 		users = users.filter(username__contains=query)
+	
+	followed = []
+	if request.user.is_authenticated :
+		for f in Follow.objects.filter(follower = request.user):
+			followed.append(f.followed.id) 
+
 	context = {
 		"users": users,
+		'followed': followed,
 	}
 
 	return render(request, 'profiles.html', context)
@@ -242,20 +248,39 @@ def profile(request, user_id):
 
 	return render(request, 'profile.html', context)
 
+def follow(request, user_id):
+	user_obj = User.objects.get(id=user_id)
+	if request.user.is_anonymous:
+		return redirent('login')
+	
+	follow, created = Follow.objects.get_or_create(follower=request.user, followed=user_obj)
+	if created:
+		action = "follow"
+	else:
+		follow.delete()
+		action="unfollow"
+	
+	response = {
+		"action": action,
+	}
+	return JsonResponse(response, safe=False)
 
+def following(request):
+	followed = []
 
+	for f in Follow.objects.filter(follower = request.user):
+		followed.append(f.followed)  
 
+	query = request.GET.get('q')
+	if query:
+		followed = followed.filter(
+		Q(username__icontains=query)|
+		Q(first_name__icontains=query)
+		).distinct()
 
-
-
-
-
-
-
-
-
-
-
-
+	context = {
+		"followed": followed,
+	}
+	return render(request, 'followed_list.html', context)
 
 

@@ -37,7 +37,15 @@
                 <li class="list-group-item text-center" style="background-color: rgba(255, 255, 255, 0.1);" >
                     <a href="{% url 'profile' user.id %}" class="btn btn-outline-dark">
                     View Details</a>
+                  {% if not user == request.user %}
+                    <button class="btn btn-light ml-2" onclick="follow({{user.id}})">
+                        <i id="plus-{{user.id}}" class="fas fa-user-plus {% if user.id in followed %}text-success{% endif %}">
+                    </i></button>
+                    {% endif %}
                 </li>
+
+              
+
               </ul>
 
             </div>
@@ -48,5 +56,27 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+    function follow(user_id){
+        let button_id = "#plus-"+user_id
+        $.ajax({
+            type: "GET",
+            url: '/follow/'+user_id+'/',
+            success: function(data){
+                if (data.action === "follow"){
+                    $(button_id).addClass('text-success')
+                }
+                else{
+                    $(button_id).removeClass('text-success')
+                }
+            },
+            error: function(){
+                alret("something went wrong")
+            },
+            
+        })
+    }
+</script>
 
 {% endblock content %}
